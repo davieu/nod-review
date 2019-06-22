@@ -1,21 +1,22 @@
-const Logger = require('./logger');
+const http = require('http');
+const path = require('path');
+const fs = require('fs');
 
-const logger = new Logger();
-
-let test
-
-logger.on('message', (data) => {
-  console.log(`Called listener: ${data.id}: ${data.msg}`); 
-  console.log('test ', data)
-  test = data
-  return data
+//create server object
+const server = http.createServer((req, res) => {
+  if (req.url === '/') {
+    res.write('<h1>HOME</h1>')
+    res.end('<p>I am the homepage</p>')
+  } else if (req.url === '/about') {
+    res.write('<h1>ABOUT</h1>')
+    res.end('<p>I am the about page</p>')
+  }
 })
 
-logger.on('testFunc', (data) => {
-  console.log(data)
-})
+//make the env port or local port
+const PORT = process.env.PORT || 5000;
 
-logger.log('Hello World')
-// logger.log('Hello World222222')
+//make the server listen to this PORT
+// server.listen(PORT, () => console.log(`Server running on port: ${PORT}`))
+server.listen(PORT, function() {console.log(`Server running on port: ${PORT}`)})
 
-// console.log(test)
