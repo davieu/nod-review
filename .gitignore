@@ -1,1 +1,5 @@
 node_modules
+reference
+logger.js
+person
+logger-event.js
